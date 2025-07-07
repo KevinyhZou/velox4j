@@ -98,6 +98,10 @@ public class StaticJniApi {
     jni.serialTaskStop(serialTask.id());
   }
 
+  public void serialTaskCommit(SerialTask serialTask, long commitId) {
+    jni.serialTaskCommit(serialTask.id(), commitId);
+  }
+
   public void serialTaskNoMoreSplits(SerialTask serialTask, String planNodeId) {
     jni.serialTaskNoMoreSplits(serialTask.id(), planNodeId);
   }

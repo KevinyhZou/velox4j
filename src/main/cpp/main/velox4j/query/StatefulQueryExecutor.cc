@@ -157,6 +157,10 @@ void StatefulSerialTask::stop() {
   }
 }
 
+void StatefulSerialTask::commit(const int64_t id) {
+  task_->commit(id);
+}
+
 StatefulQueryExecutor::StatefulQueryExecutor(
     MemoryManager* memoryManager,
     std::shared_ptr<const Query> query)

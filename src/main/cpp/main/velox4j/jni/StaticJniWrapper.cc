@@ -118,6 +118,13 @@ void serialTaskStop(JNIEnv * env, jobject javaThis, jlong stId) {
   JNI_METHOD_END()
 }
 
+void serialTaskCommit(JNIEnv* env, jobject javaThis, jlong stId, jlong commitId) {
+  JNI_METHOD_START
+  auto serialTask = ObjectStore::retrieve<StatefulSerialTask>(stId);
+  serialTask->commit(commitId);
+  JNI_METHOD_END()
+}
+
 void serialTaskAddSplit(
     JNIEnv* env,
     jobject javaThis,
@@ -378,6 +385,13 @@ void StaticJniWrapper::initialize(JNIEnv* env) {
       "serialTaskStop",
       (void *) serialTaskStop,
       kTypeVoid,
+      kTypeLong,
+      nullptr);
+  addNativeMethod(
+      "serialTaskCommit",
+      (void*) serialTaskCommit,
+      kTypeVoid,
+      kTypeLong,
       kTypeLong,
       nullptr);
   addNativeMethod(

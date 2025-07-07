@@ -50,6 +50,7 @@ class StatefulSerialTask : public UpIterator {
   std::unique_ptr<SerialTaskStats> collectStats();
   void start();
   void stop();
+  void commit(const int64_t id);
 
  private:
   bool running_ = false;

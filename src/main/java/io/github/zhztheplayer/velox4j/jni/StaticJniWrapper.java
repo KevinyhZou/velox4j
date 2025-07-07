@@ -56,6 +56,8 @@ public class StaticJniWrapper {
 
   native void serialTaskStop(long id);
 
+  native void serialTaskCommit(long id, long commitId);
+
   native void serialTaskNoMoreSplits(long id, String planNodeId);
 
   native String serialTaskCollectStats(long id);
