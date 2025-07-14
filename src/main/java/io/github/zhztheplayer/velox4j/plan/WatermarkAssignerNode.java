@@ -32,12 +32,12 @@ public class WatermarkAssignerNode extends PlanNode {
 
   @JsonCreator
   public WatermarkAssignerNode(
-          @JsonProperty("id") String id,
-          @JsonProperty("sources") List<PlanNode> sources,
-          @JsonProperty("project") ProjectNode project,
-          @JsonProperty("idleTimeout") long idleTimeout,
-          @JsonProperty("rowtimeFieldIndex") int rowtimeFieldIndex,
-          @JsonProperty("watermarkInterval") long watermarkInterval) {
+      @JsonProperty("id") String id,
+      @JsonProperty("sources") List<PlanNode> sources,
+      @JsonProperty("project") ProjectNode project,
+      @JsonProperty("idleTimeout") long idleTimeout,
+      @JsonProperty("rowtimeFieldIndex") int rowtimeFieldIndex,
+      @JsonProperty("watermarkInterval") long watermarkInterval) {
     super(id);
     this.sources = sources;
     this.project = project;
