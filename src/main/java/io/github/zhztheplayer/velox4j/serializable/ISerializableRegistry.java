@@ -143,10 +143,6 @@ public final class ISerializableRegistry {
     NAME_REGISTRY.registerClass("HiveColumnHandle", HiveColumnHandle.class);
     NAME_REGISTRY.registerClass("HiveConnectorSplit", HiveConnectorSplit.class);
     NAME_REGISTRY.registerClass("HiveTableHandle", HiveTableHandle.class);
-    NAME_REGISTRY.registerClass("KafkaTableHandle", KafkaTableHandle.class);
-    NAME_REGISTRY.registerClass("KafkaConnectorSplit", KafkaConnectorSplit.class);
-    NAME_REGISTRY.registerClass(
-        "TopicPartitionOffset", KafkaConnectorSplit.TopicPartitionOffset.class);
     NAME_REGISTRY.registerClass("FileSystemInsertTableHandle", FileSystemInsertTableHandle.class);
     NAME_REGISTRY.registerClass("ExternalStreamConnectorSplit", ExternalStreamConnectorSplit.class);
     NAME_REGISTRY.registerClass("ExternalStreamTableHandle", ExternalStreamTableHandle.class);

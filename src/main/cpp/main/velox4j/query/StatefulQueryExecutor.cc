@@ -115,8 +115,7 @@ void StatefulSerialTask::noMoreSplits(const core::PlanNodeId& planNodeId) {
 }
 
 std::unique_ptr<SerialTaskStats> StatefulSerialTask::collectStats() {
-  const auto stats = task_->statefulTaskStats();
-  return std::make_unique<SerialTaskStats>(stats);
+  return std::make_unique<SerialTaskStats>(task_->taskStats());
 }
 
 UpIterator::State StatefulSerialTask::advance0(bool wait) {
