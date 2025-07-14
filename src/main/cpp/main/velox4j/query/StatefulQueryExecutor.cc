@@ -16,7 +16,6 @@
  */
 
 #include "StatefulQueryExecutor.h"
-#include <velox/experimental/stateful/StatefulTask.h>
 #include "velox4j/query/Query.h"
 #include "folly/Executor.h"
 #include "folly/executors/CPUThreadPoolExecutor.h"
@@ -59,11 +58,7 @@ StatefulSerialTask::StatefulSerialTask(
       std::move(queryCtx));
 
   task_ = task;
-
-  if (!task_->supportSerialExecutionMode()) {
-    VELOX_FAIL(
-        "Task doesn't support single threaded execution: " + task->toString());
-  }
+  task_->initOperators();
 }
 
 StatefulSerialTask::~StatefulSerialTask() {
@@ -89,13 +84,22 @@ void StatefulSerialTask::wait() {
 }
 
 RowVectorPtr StatefulSerialTask::get() {
+  VELOX_CHECK(false, "Should not call get for stateful task.");
+  return nullptr;
+}
+
+stateful::StreamElementPtr StatefulSerialTask::statefulGet() {
   VELOX_CHECK_NOT_NULL(
       pending_,
       "SerialTask: No pending row vector to return. Make sure the "
       "iterator is available via member function advance() first");
-  const auto out = pending_;
+  const auto out = std::move(pending_);
   pending_ = nullptr;
   return out;
+}
+
+void StatefulSerialTask::notifyWatermark(long watermark, int index) {
+  task_->notifyWatermark(watermark, index);
 }
 
 void StatefulSerialTask::addSplit(
