@@ -90,14 +90,6 @@ public class StaticJniApi {
     jni.serialTaskAddSplit(serialTask.id(), planNodeId, groupId, splitJson);
   }
 
-  public void serialTaskStart(SerialTask serialTask) {
-    jni.serialTaskStart(serialTask.id());
-  }
-
-  public void serialTaskStop(SerialTask serialTask) {
-    jni.serialTaskStop(serialTask.id());
-  }
-
   public void serialTaskCommit(SerialTask serialTask, long commitId) {
     jni.serialTaskCommit(serialTask.id(), commitId);
   }

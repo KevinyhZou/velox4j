@@ -53,14 +53,9 @@ class StatefulSerialTask : public UpIterator {
   void noMoreSplits(const facebook::velox::core::PlanNodeId& planNodeId);
 
   std::unique_ptr<SerialTaskStats> collectStats();
-  void start();
-  void stop();
   void commit(const int64_t id);
 
  private:
-  bool running_ = false;
-  const std::shared_ptr<folly::Executor> executor_;
-  void run();
   State advance0(bool wait);
   MemoryManager* const memoryManager_;
   std::shared_ptr<const Query> query_;
