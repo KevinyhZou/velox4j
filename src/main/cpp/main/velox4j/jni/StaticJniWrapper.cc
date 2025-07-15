@@ -134,6 +134,15 @@ void serialTaskAddSplit(
   JNI_METHOD_END()
 }
 
+void serialTaskCommit(JNIEnv* env, jobject javaThis, jlong stId, jlong commitId) {
+  JNI_METHOD_START
+  if (stateful) {
+    auto serialTask = ObjectStore::retrieve<StatefulSerialTask>(stId);
+    serialTask->commit(commitId);
+  }
+  JNI_METHOD_END()
+}
+
 void serialTaskNoMoreSplits(
     JNIEnv* env,
     jobject javaThis,
@@ -341,6 +350,13 @@ void StaticJniWrapper::initialize(JNIEnv* env) {
       "blockingQueueNoMoreInput",
       (void*)blockingQueueNoMoreInput,
       kTypeVoid,
+      kTypeLong,
+      nullptr);
+  addNativeMethod(
+      "serialTaskCommit",
+      (void*)serialTaskCommit,
+      kTypeVoid,
+      kTypeLong,
       kTypeLong,
       nullptr);
   addNativeMethod(
