@@ -17,5 +17,15 @@
 package io.github.zhztheplayer.velox4j.type;
 
 public class TimestampType extends Type {
+  private String timeZone;
+
   public TimestampType() {}
+
+  public TimestampType(String timeZone) {
+    this.timeZone = timeZone;
+  }
+
+  public String getTimeZone() {
+    return timeZone;
+  }
 }

@@ -20,6 +20,7 @@ import io.github.zhztheplayer.velox4j.aggregate.Aggregate;
 import io.github.zhztheplayer.velox4j.config.Config;
 import io.github.zhztheplayer.velox4j.config.ConnectorConfig;
 import io.github.zhztheplayer.velox4j.connector.*;
+import io.github.zhztheplayer.velox4j.connector.KafkaConnectorSplit.TopicPartitionOffset;
 import io.github.zhztheplayer.velox4j.eval.Evaluation;
 import io.github.zhztheplayer.velox4j.expression.CallTypedExpr;
 import io.github.zhztheplayer.velox4j.expression.CastTypedExpr;
@@ -46,6 +47,8 @@ import io.github.zhztheplayer.velox4j.plan.StreamJoinNode;
 import io.github.zhztheplayer.velox4j.plan.StreamPartitionNode;
 import io.github.zhztheplayer.velox4j.plan.TableScanNode;
 import io.github.zhztheplayer.velox4j.plan.TableWriteNode;
+import io.github.zhztheplayer.velox4j.plan.TimeWindowNode;
+import io.github.zhztheplayer.velox4j.plan.TimeWindowNode.WindowParameters;
 import io.github.zhztheplayer.velox4j.plan.TopNRowNumberNode;
 import io.github.zhztheplayer.velox4j.plan.ValuesNode;
 import io.github.zhztheplayer.velox4j.plan.WatermarkAssignerNode;
@@ -144,6 +147,9 @@ public final class ISerializableRegistry {
     NAME_REGISTRY.registerClass("HiveConnectorSplit", HiveConnectorSplit.class);
     NAME_REGISTRY.registerClass("HiveTableHandle", HiveTableHandle.class);
     NAME_REGISTRY.registerClass("FileSystemInsertTableHandle", FileSystemInsertTableHandle.class);
+    NAME_REGISTRY.registerClass("KafkaTableHandle", KafkaTableHandle.class);
+    NAME_REGISTRY.registerClass("KafkaConnectorSplit", KafkaConnectorSplit.class);
+    NAME_REGISTRY.registerClass("TopicPartitionOffset", TopicPartitionOffset.class);
     NAME_REGISTRY.registerClass("ExternalStreamConnectorSplit", ExternalStreamConnectorSplit.class);
     NAME_REGISTRY.registerClass("ExternalStreamTableHandle", ExternalStreamTableHandle.class);
     NAME_REGISTRY.registerClass("DiscardDataTableHandle", DiscardDataTableHandle.class);
@@ -184,6 +190,8 @@ public final class ISerializableRegistry {
     NAME_REGISTRY.registerClass("WindowNode", WindowNode.class);
     NAME_REGISTRY.registerClass("RowNumberNode", RowNumberNode.class);
     NAME_REGISTRY.registerClass("TopNRowNumberNode", TopNRowNumberNode.class);
+    NAME_REGISTRY.registerClass("TimeWindowNode", TimeWindowNode.class);
+    NAME_REGISTRY.registerClass("WindowParameters", WindowParameters.class);
   }
 
   private static void registerWindow() {

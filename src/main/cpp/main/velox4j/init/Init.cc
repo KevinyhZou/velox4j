@@ -23,6 +23,9 @@
 #include <velox/connectors/hive/HiveConnector.h>
 #include <velox/connectors/hive/HiveConnectorSplit.h>
 #include <velox/connectors/hive/HiveDataSink.h>
+#include <velox/connectors/kafka/KafkaConnector.h>
+#include <velox/connectors/kafka/KafkaConnectorSplit.h>
+#include <velox/connectors/kafka/KafkaTableHandle.h>
 #include <velox/connectors/nexmark/NexmarkConnector.h>
 #include <velox/connectors/nexmark/NexmarkConnectorSplit.h>
 #include <velox/connectors/filesystem/FileSystemInsertTableHandle.h>
@@ -105,6 +108,13 @@ void initForSpark() {
       "connector-hive",
       std::make_shared<facebook::velox::config::ConfigBase>(
           std::unordered_map<std::string, std::string>()),
+      nullptr));
+  connector::kafka::KafkaTableHandle::registerSerDe();
+  connector::kafka::KafkaConnectorSplit::registerSerDe();
+  connector::registerConnector(std::make_shared<connector::kafka::KafkaConnector>(
+      "connector-kafka",
+      std::make_shared<facebook::velox::config::ConfigBase>(
+        std::unordered_map<std::string, std::string>()),
       nullptr));
   connector::filesystem::FileSystemInsertTableHandle::registerSerDe();
   connector::registerConnector(std::make_shared<connector::filesystem::FileSystemConnector>(
