@@ -29,9 +29,11 @@
 #include <velox/connectors/nexmark/NexmarkConnector.h>
 #include <velox/connectors/nexmark/NexmarkConnectorSplit.h>
 #include <velox/connectors/filesystem/FileSystemInsertTableHandle.h>
+#include <velox/connectors/filesystem/FileSystemIndexTableHandle.h>
 #include <velox/connectors/filesystem/FileSystemConnector.h>
 #include <velox/dwio/parquet/RegisterParquetReader.h>
 #include <velox/dwio/parquet/RegisterParquetWriter.h>
+#include <velox/dwio/text/RegisterTextReader.h>
 #include <velox/dwio/text/RegisterTextWriter.h>
 #include <velox/exec/PartitionFunction.h>
 #include <velox/experimental/stateful/StatefulPlanNode.h>
@@ -73,6 +75,7 @@ void initForSpark() {
   dwio::common::registerFileSinks();
   parquet::registerParquetReaderFactory();
   parquet::registerParquetWriterFactory();
+  text::registerTextReaderFactory();
   text::registerTextWriterFactory();
   functions::sparksql::registerFunctions();
   aggregate::prestosql::registerAllAggregateFunctions(
@@ -117,6 +120,7 @@ void initForSpark() {
         std::unordered_map<std::string, std::string>()),
       nullptr));
   connector::filesystem::FileSystemInsertTableHandle::registerSerDe();
+  connector::filesystem::FileSystemIndexTableHandle::registerSerDe();
   connector::registerConnector(std::make_shared<connector::filesystem::FileSystemConnector>(
       "connector-filesystem",
       std::make_shared<facebook::velox::config::ConfigBase>(
