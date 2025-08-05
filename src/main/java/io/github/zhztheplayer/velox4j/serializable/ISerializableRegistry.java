@@ -32,10 +32,14 @@ import io.github.zhztheplayer.velox4j.expression.InputTypedExpr;
 import io.github.zhztheplayer.velox4j.expression.LambdaTypedExpr;
 import io.github.zhztheplayer.velox4j.filter.AlwaysTrue;
 import io.github.zhztheplayer.velox4j.plan.AggregationNode;
+import io.github.zhztheplayer.velox4j.plan.BetweenIndexLookupCondition;
 import io.github.zhztheplayer.velox4j.plan.EmptyNode;
 import io.github.zhztheplayer.velox4j.plan.FilterNode;
 import io.github.zhztheplayer.velox4j.plan.HashJoinNode;
 import io.github.zhztheplayer.velox4j.plan.HashPartitionFunctionSpec;
+import io.github.zhztheplayer.velox4j.plan.InIndexLookupCondition;
+import io.github.zhztheplayer.velox4j.plan.IndexLookupCondition;
+import io.github.zhztheplayer.velox4j.plan.IndexLookupJoinNode;
 import io.github.zhztheplayer.velox4j.plan.LimitNode;
 import io.github.zhztheplayer.velox4j.plan.LocalPartitionNode;
 import io.github.zhztheplayer.velox4j.plan.NestedLoopJoinNode;
@@ -162,6 +166,7 @@ public final class ISerializableRegistry {
     NAME_REGISTRY.registerClass("HiveInsertFileNameGenerator", HiveInsertFileNameGenerator.class);
     NAME_REGISTRY.registerClass("NexmarkTableHandle", NexmarkTableHandle.class);
     NAME_REGISTRY.registerClass("NexmarkConnectorSplit", NexmarkConnectorSplit.class);
+    NAME_REGISTRY.registerClass("FileSystemIndexTableHandle", FileSystemIndexTableHandle.class);
   }
 
   private static void registerFilters() {
@@ -192,6 +197,10 @@ public final class ISerializableRegistry {
     NAME_REGISTRY.registerClass("TopNRowNumberNode", TopNRowNumberNode.class);
     NAME_REGISTRY.registerClass("TimeWindowNode", TimeWindowNode.class);
     NAME_REGISTRY.registerClass("WindowParameters", WindowParameters.class);
+    NAME_REGISTRY.registerClass("IndexLookupJoinNode", IndexLookupJoinNode.class);
+    NAME_REGISTRY.registerClass("IndexLookupCondition", IndexLookupCondition.class);
+    NAME_REGISTRY.registerClass("InIndexLookupCondition", InIndexLookupCondition.class);
+    NAME_REGISTRY.registerClass("BetweenIndexLookupCondition", BetweenIndexLookupCondition.class);
   }
 
   private static void registerWindow() {
