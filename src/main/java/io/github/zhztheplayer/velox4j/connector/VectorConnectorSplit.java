@@ -17,30 +17,28 @@
 package io.github.zhztheplayer.velox4j.connector;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.github.zhztheplayer.velox4j.serializable.ISerializable;
+public class VectorConnectorSplit extends ConnectorSplit {
 
-public class Assignment extends ISerializable {
-  private final String assign;
-  private final ColumnHandle columnHandle;
+  private String data;
 
   @JsonCreator
-  public Assignment(
-      @JsonProperty("assign") String assign,
-      @JsonProperty("columnHandle") ColumnHandle columnHandle) {
-    this.assign = assign;
-    this.columnHandle = columnHandle;
+  public VectorConnectorSplit(
+      @JsonProperty("connectorId") String connectorId,
+      @JsonProperty("splitWeight") long splitWeight,
+      @JsonProperty("cacheable") boolean cacheable,
+      @JsonProperty("data") String data) {
+    super(connectorId, splitWeight, cacheable);
+    this.data = data;
   }
 
-  @JsonGetter("assign")
-  public String getAssign() {
-    return assign;
+  @JsonProperty("data")
+  public String getData() {
+    return data;
   }
 
-  @JsonGetter("columnHandle")
-  public ColumnHandle getColumnHandle() {
-    return columnHandle;
+  public void setData(@JsonProperty("data") String data) {
+    this.data = data;
   }
 }

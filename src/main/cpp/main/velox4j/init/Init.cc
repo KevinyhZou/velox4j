@@ -31,6 +31,7 @@
 #include <velox/connectors/filesystem/FileSystemInsertTableHandle.h>
 #include <velox/connectors/filesystem/FileSystemIndexTableHandle.h>
 #include <velox/connectors/filesystem/FileSystemConnector.h>
+#include <velox/connectors/filesystem/FileSystemColumnHandle.h>
 #include <velox/dwio/parquet/RegisterParquetReader.h>
 #include <velox/dwio/parquet/RegisterParquetWriter.h>
 #include <velox/dwio/text/RegisterTextReader.h>
@@ -121,6 +122,7 @@ void initForSpark() {
       nullptr));
   connector::filesystem::FileSystemInsertTableHandle::registerSerDe();
   connector::filesystem::FileSystemIndexTableHandle::registerSerDe();
+  connector::filesystem::FileSystemColumnHandle::registerSerDe();
   connector::registerConnector(std::make_shared<connector::filesystem::FileSystemConnector>(
       "connector-filesystem",
       std::make_shared<facebook::velox::config::ConfigBase>(

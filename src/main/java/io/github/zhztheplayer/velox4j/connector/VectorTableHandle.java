@@ -17,30 +17,32 @@
 package io.github.zhztheplayer.velox4j.connector;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.github.zhztheplayer.velox4j.serializable.ISerializable;
+import io.github.zhztheplayer.velox4j.type.RowType;
 
-public class Assignment extends ISerializable {
-  private final String assign;
-  private final ColumnHandle columnHandle;
+public class VectorTableHandle extends ConnectorTableHandle {
+
+  private String tableName;
+  private RowType dataColumns;
 
   @JsonCreator
-  public Assignment(
-      @JsonProperty("assign") String assign,
-      @JsonProperty("columnHandle") ColumnHandle columnHandle) {
-    this.assign = assign;
-    this.columnHandle = columnHandle;
+  public VectorTableHandle(
+      @JsonProperty("connectorId") String connectorId,
+      @JsonProperty("tableName") String tableName,
+      @JsonProperty("dataColumns") RowType dataColumns) {
+    super(connectorId);
+    this.tableName = tableName;
+    this.dataColumns = dataColumns;
   }
 
-  @JsonGetter("assign")
-  public String getAssign() {
-    return assign;
+  @JsonProperty("tableName")
+  public String getTableName() {
+    return tableName;
   }
 
-  @JsonGetter("columnHandle")
-  public ColumnHandle getColumnHandle() {
-    return columnHandle;
+  @JsonProperty("dataColumns")
+  public RowType getDataColumns() {
+    return dataColumns;
   }
 }

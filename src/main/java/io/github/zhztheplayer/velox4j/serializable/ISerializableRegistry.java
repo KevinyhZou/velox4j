@@ -167,6 +167,7 @@ public final class ISerializableRegistry {
     NAME_REGISTRY.registerClass("NexmarkTableHandle", NexmarkTableHandle.class);
     NAME_REGISTRY.registerClass("NexmarkConnectorSplit", NexmarkConnectorSplit.class);
     NAME_REGISTRY.registerClass("FileSystemIndexTableHandle", FileSystemIndexTableHandle.class);
+    NAME_REGISTRY.registerClass("FileSystemColumnHandle", FileSystemColumnHandle.class);
   }
 
   private static void registerFilters() {
@@ -176,6 +177,7 @@ public final class ISerializableRegistry {
   private static void registerPlanNodes() {
     NAME_REGISTRY.registerClass("ValuesNode", ValuesNode.class);
     NAME_REGISTRY.registerClass("TableScanNode", TableScanNode.class);
+    NAME_REGISTRY.registerClass("assignment", Assignment.class);
     NAME_REGISTRY.registerClass("Aggregate", Aggregate.class);
     NAME_REGISTRY.registerClass("AggregationNode", AggregationNode.class);
     NAME_REGISTRY.registerClass("ProjectNode", ProjectNode.class);

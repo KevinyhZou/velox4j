@@ -17,30 +17,43 @@
 package io.github.zhztheplayer.velox4j.connector;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.github.zhztheplayer.velox4j.serializable.ISerializable;
+import io.github.zhztheplayer.velox4j.type.RowType;
 
-public class Assignment extends ISerializable {
-  private final String assign;
-  private final ColumnHandle columnHandle;
+public class PrintTableHandle extends ConnectorInsertTableHandle {
+
+  private String tableName;
+  private String path;
+  private RowType dataColumns;
 
   @JsonCreator
-  public Assignment(
-      @JsonProperty("assign") String assign,
-      @JsonProperty("columnHandle") ColumnHandle columnHandle) {
-    this.assign = assign;
-    this.columnHandle = columnHandle;
+  public PrintTableHandle(
+      @JsonProperty("tableName") String tableName,
+      @JsonProperty("path") String path,
+      @JsonProperty("dataColumns") RowType dataColumns) {
+    this.tableName = tableName;
+    this.path = path;
+    this.dataColumns = dataColumns;
   }
 
-  @JsonGetter("assign")
-  public String getAssign() {
-    return assign;
+  @Override
+  public boolean supportsMultiThreading() {
+    return false;
   }
 
-  @JsonGetter("columnHandle")
-  public ColumnHandle getColumnHandle() {
-    return columnHandle;
+  @JsonProperty("tableName")
+  public String getTableName() {
+    return tableName;
+  }
+
+  @JsonProperty("path")
+  public String getPath() {
+    return path;
+  }
+
+  @JsonProperty("dataColumns")
+  public RowType getDataColumns() {
+    return dataColumns;
   }
 }
