@@ -26,37 +26,36 @@ import io.github.zhztheplayer.velox4j.type.Type;
 
 public class FileSystemColumnHandle extends HiveColumnHandle {
 
-    @JsonCreator
-    public FileSystemColumnHandle(
-        @JsonProperty("fileSystemColumnHandleName") String name, 
-        @JsonProperty("columnType") ColumnType columnType, 
-        @JsonProperty("dataType") Type dataType,
-        @JsonProperty("requiredSubFields") List<String> requiredSubfields) {
-        super(name, columnType, dataType, null , requiredSubfields);
-    }
+  @JsonCreator
+  public FileSystemColumnHandle(
+      @JsonProperty("fileSystemColumnHandleName") String name,
+      @JsonProperty("columnType") ColumnType columnType,
+      @JsonProperty("dataType") Type dataType,
+      @JsonProperty("requiredSubFields") List<String> requiredSubfields) {
+    super(name, columnType, dataType, null, requiredSubfields);
+  }
 
-    @JsonGetter("fileSystemColumnHandleName")
-    @Override
-    public String getName() {
-        return super.getName();
-    }
+  @JsonGetter("fileSystemColumnHandleName")
+  @Override
+  public String getName() {
+    return super.getName();
+  }
 
-    @JsonGetter("columnType")
-    @Override
-    public ColumnType getColumnType() {
-        return super.getColumnType();
-    }
+  @JsonGetter("columnType")
+  @Override
+  public ColumnType getColumnType() {
+    return super.getColumnType();
+  }
 
-    @JsonGetter("dataType")
-    @Override
-    public Type getDataType() {
-        return super.getDataType();
-    }
-    
-    @JsonGetter("requiredSubfields")
-    @Override
-    public List<String> getRequiredSubfields() {
-        return super.getRequiredSubfields();
-    }
-    
+  @JsonGetter("dataType")
+  @Override
+  public Type getDataType() {
+    return super.getDataType();
+  }
+
+  @JsonGetter("requiredSubfields")
+  @Override
+  public List<String> getRequiredSubfields() {
+    return super.getRequiredSubfields();
+  }
 }
