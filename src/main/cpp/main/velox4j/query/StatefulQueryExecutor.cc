@@ -17,8 +17,6 @@
 
 #include "StatefulQueryExecutor.h"
 #include "velox4j/query/Query.h"
-
-#include <iostream>
 #include <string>
 #include <utility>
 
