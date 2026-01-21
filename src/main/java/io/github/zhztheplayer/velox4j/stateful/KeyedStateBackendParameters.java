@@ -26,16 +26,16 @@ public class KeyedStateBackendParameters extends ISerializable {
 
   private String jobId;
   private String operatorId;
-  private int backendType;
+  private int stateBackendType;
 
   @JsonCreator
   public KeyedStateBackendParameters(
       @JsonProperty("jobId") String jobId,
       @JsonProperty("operatorId") String operatorId,
-      @JsonProperty("backendType") int backendType) {
+      @JsonProperty("stateBackendType") int stateBackendType) {
     this.jobId = jobId;
     this.operatorId = operatorId;
-    this.backendType = backendType;
+    this.stateBackendType = stateBackendType;
   }
 
   @JsonGetter("jobId")
@@ -48,8 +48,8 @@ public class KeyedStateBackendParameters extends ISerializable {
     return this.operatorId;
   }
 
-  @JsonGetter("backendType")
+  @JsonGetter("stateBackendType")
   public int getBackendType() {
-    return backendType;
+    return stateBackendType;
   }
 }
