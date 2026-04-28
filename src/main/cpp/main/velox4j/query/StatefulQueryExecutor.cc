@@ -16,6 +16,7 @@
  */
 
 #include "StatefulQueryExecutor.h"
+#include <glog/logging.h>
 #include <velox/experimental/stateful/state/StateBackend.h>
 #include <velox/experimental/stateful/state/RocksDBStateBackend.h>
 #include "velox4j/query/Query.h"
@@ -66,12 +67,21 @@ StatefulSerialTask::StatefulSerialTask(
 }
 
 StatefulSerialTask::~StatefulSerialTask() {
-  if (task_ != nullptr && task_->isRunning()) {
-    // TODO: add a method to finish the task and set state.
-    task_->finish();
-    // FIXME: Calling .wait() may take no effect in single thread execution
-    //  mode.
-    task_->requestCancel().wait();
+  // Destructors must not let exceptions escape, otherwise std::terminate is
+  // invoked. StatefulTask::finish() may throw (e.g. VELOX_CHECK fails when
+  // there are unconsumed pending outputs), so swallow and log any errors here.
+  try {
+    if (task_ != nullptr && task_->isRunning()) {
+      // TODO: add a method to finish the task and set state.
+      task_->finish();
+      // FIXME: Calling .wait() may take no effect in single thread execution
+      //  mode.
+      task_->requestCancel().wait();
+    }
+  } catch (const std::exception& e) {
+    LOG(ERROR) << "Exception while finishing StatefulSerialTask: " << e.what();
+  } catch (...) {
+    LOG(ERROR) << "Unknown exception while finishing StatefulSerialTask.";
   }
   task_.reset();
 }
