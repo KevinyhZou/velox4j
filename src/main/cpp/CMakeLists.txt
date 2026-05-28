@@ -16,6 +16,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 set(CMAKE_CXX_EXTENSIONS ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Velox4J option definitions.
 option(VELOX4J_ENABLE_CCACHE "Use ccache if installed." ON)
@@ -70,17 +71,17 @@ file(STRINGS ${VELOX_REF_HASH_FILE} VELOX_SOURCE_URL_MD5)
 #  ${VELOX_SOURCE_URL}
 #  URL_HASH
 #  MD5=${VELOX_SOURCE_URL_MD5})
-set(VELOX_SOURCE_URL "https://github.com/bigo-sg/velox.git")
-CPMAddPackage(
-        NAME velox
-        GIT_REPOSITORY ${VELOX_SOURCE_URL}
-        GIT_TAG c53b4cea4f5c0f2ff8f1609c948cea5a3862ca09
-)
-#set(VELOX_SOURCE_URL ${CMAKE_CURRENT_LIST_DIR}/build/_deps/velox-src)
-#CPMAddPackage(
+# set(VELOX_SOURCE_URL "https://github.com/KevinyhZou/velox.git")
+# CPMAddPackage(
 #        NAME velox
-#        SOURCE_DIR  ${VELOX_SOURCE_URL}
-#)
+#        GIT_REPOSITORY ${VELOX_SOURCE_URL}
+#        GIT_TAG proc_time_window_test
+# )
+set(VELOX_SOURCE_URL ${CMAKE_CURRENT_LIST_DIR}/build/_deps/velox-src)
+CPMAddPackage(
+      NAME velox
+      SOURCE_DIR  ${VELOX_SOURCE_URL}
+)
 
 # Import JniHelpers.
 set(JNI_HELPERS_REPO zhztheplayer/JniHelpersCpp)
