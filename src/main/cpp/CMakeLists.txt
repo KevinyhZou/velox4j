@@ -76,14 +76,19 @@ file(STRINGS ${VELOX_REF_HASH_FILE} VELOX_SOURCE_URL_MD5)
 if(VELOX4J_VELOX_SOURCE_DIR)
   cpmaddpackage(NAME velox SOURCE_DIR ${VELOX4J_VELOX_SOURCE_DIR})
 else()
-  set(VELOX_SOURCE_URL "https://github.com/KevinyhZou/velox.git")
-  cpmaddpackage(
-    NAME
-    velox
-    GIT_REPOSITORY
-    ${VELOX_SOURCE_URL}
-    GIT_TAG
-    support_parquet_format)
+  # set(VELOX_SOURCE_URL "https://github.com/KevinyhZou/velox.git")
+  # cpmaddpackage(
+  #  NAME
+  #  velox
+  #  GIT_REPOSITORY
+  #  ${VELOX_SOURCE_URL}
+  #  GIT_TAG
+  #  support_parquet_format)
+  set(VELOX_SOURCE_URL ${CMAKE_CURRENT_LIST_DIR}/build/_deps/velox-src)
+  CPMAddPackage(
+        NAME velox
+        SOURCE_DIR  ${VELOX_SOURCE_URL}
+  )
 endif()
 if(TARGET gflags::gflags_shared)
   get_target_property(GFLAGS_SHARED_LIBRARY gflags::gflags_shared
