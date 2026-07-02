@@ -52,6 +52,7 @@ set(VELOX_MONO_LIBRARY ON)
 set(VELOX_BUILD_SHARED ON)
 set(VELOX_BUILD_STATIC OFF)
 set(VELOX_ENABLE_ARROW ON)
+set(VELOX_ENABLE_HDFS ON)
 set(VELOX_ENABLE_KAFKA_CONNECTOR ON)
 set(CPPKAFKA_DISABLE_TESTS ON)
 set(CPPKAFKA_DISABLE_EXAMPLES ON)
@@ -75,14 +76,14 @@ file(STRINGS ${VELOX_REF_HASH_FILE} VELOX_SOURCE_URL_MD5)
 if(VELOX4J_VELOX_SOURCE_DIR)
   cpmaddpackage(NAME velox SOURCE_DIR ${VELOX4J_VELOX_SOURCE_DIR})
 else()
-  set(VELOX_SOURCE_URL "https://github.com/bigo-sg/velox.git")
+  set(VELOX_SOURCE_URL "https://github.com/KevinyhZou/velox.git")
   cpmaddpackage(
     NAME
     velox
     GIT_REPOSITORY
     ${VELOX_SOURCE_URL}
     GIT_TAG
-    ${VELOX_REF})
+    support_parquet_format)
 endif()
 if(TARGET gflags::gflags_shared)
   get_target_property(GFLAGS_SHARED_LIBRARY gflags::gflags_shared
