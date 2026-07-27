@@ -165,6 +165,8 @@ public final class ISerializableRegistry {
         "TopicPartitionOffset", KafkaConnectorSplit.TopicPartitionOffset.class);
     NAME_REGISTRY.registerClass("PulsarTableHandle", PulsarTableHandle.class);
     NAME_REGISTRY.registerClass("PulsarConnectorSplit", PulsarConnectorSplit.class);
+    NAME_REGISTRY.registerClass(
+        "PulsarTopicPartitionOffset", PulsarConnectorSplit.TopicPartitionOffset.class);
     NAME_REGISTRY.registerClass("FileSystemInsertTableHandle", FileSystemInsertTableHandle.class);
     NAME_REGISTRY.registerClass("ExternalStreamConnectorSplit", ExternalStreamConnectorSplit.class);
     NAME_REGISTRY.registerClass("ExternalStreamTableHandle", ExternalStreamTableHandle.class);

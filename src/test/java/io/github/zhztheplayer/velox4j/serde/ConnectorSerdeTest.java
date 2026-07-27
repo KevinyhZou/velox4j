@@ -16,6 +16,7 @@
 */
 package io.github.zhztheplayer.velox4j.serde;
 
+import java.util.List;
 import java.util.Map;
 import java.util.OptionalLong;
 
@@ -115,10 +116,9 @@ public class ConnectorSerdeTest {
             "persistent://public/default/orders",
             "velox4j-subscription",
             "json",
-            3,
-            "1:2",
-            "3:4",
-            false);
+            List.of(
+                new PulsarConnectorSplit.TopicPartitionOffset(
+                    "persistent://public/default/orders-partition-3", "1:2", false)));
     SerdeTests.testISerializableRoundTrip(split);
   }
 

@@ -16,20 +16,22 @@
 */
 package io.github.zhztheplayer.velox4j.connector;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.github.zhztheplayer.velox4j.serializable.ISerializable;
 
 public class PulsarConnectorSplit extends ConnectorSplit {
   private final String serviceUrl;
   private final String topic;
   private final String subscriptionName;
   private final String format;
-  private final int partitionIndex;
-  private final String startMessageId;
-  private final String endMessageId;
-  private final boolean startMessageIdInclusive;
+  private final List<TopicPartitionOffset> topicPartitions;
 
   @JsonCreator
   public PulsarConnectorSplit(
@@ -38,24 +40,18 @@ public class PulsarConnectorSplit extends ConnectorSplit {
       @JsonProperty("topic") String topic,
       @JsonProperty("subscriptionName") String subscriptionName,
       @JsonProperty("format") String format,
-      @JsonProperty("partitionIndex") Integer partitionIndex,
-      @JsonProperty("startMessageId") String startMessageId,
-      @JsonProperty("endMessageId") String endMessageId,
-      @JsonProperty("startMessageIdInclusive") Boolean startMessageIdInclusive) {
+      @JsonProperty("topicPartitions") List<TopicPartitionOffset> topicPartitions) {
     super(connectorId, 0, false);
     this.serviceUrl = serviceUrl;
     this.topic = topic;
     this.subscriptionName = subscriptionName;
     this.format = format;
-    this.partitionIndex = partitionIndex == null ? -1 : partitionIndex;
-    this.startMessageId = startMessageId == null ? "" : startMessageId;
-    this.endMessageId = endMessageId == null ? "" : endMessageId;
-    this.startMessageIdInclusive = startMessageIdInclusive == null ? true : startMessageIdInclusive;
+    this.topicPartitions = topicPartitions == null ? Collections.emptyList() : topicPartitions;
   }
 
   public PulsarConnectorSplit(
       String connectorId, String serviceUrl, String topic, String subscriptionName, String format) {
-    this(connectorId, serviceUrl, topic, subscriptionName, format, -1, "", "", true);
+    this(connectorId, serviceUrl, topic, subscriptionName, format, Collections.emptyList());
   }
 
   @JsonGetter("serviceUrl")
@@ -78,24 +74,41 @@ public class PulsarConnectorSplit extends ConnectorSplit {
     return format;
   }
 
-  @JsonGetter("partitionIndex")
-  public int getPartitionIndex() {
-    return partitionIndex;
+  @JsonGetter("topicPartitions")
+  public List<TopicPartitionOffset> getTopicPartitions() {
+    return topicPartitions;
   }
 
-  @JsonGetter("startMessageId")
-  public String getStartMessageId() {
-    return startMessageId;
-  }
+  public static class TopicPartitionOffset extends ISerializable {
+    private final String partitionedTopic;
+    private final String messageId;
+    private final boolean startMessageIdInclusive;
 
-  @JsonGetter("endMessageId")
-  public String getEndMessageId() {
-    return endMessageId;
-  }
+    @JsonCreator
+    public TopicPartitionOffset(
+        @JsonProperty("partitionedTopic") String partitionedTopic,
+        @JsonProperty("messageId") String messageId,
+        @JsonProperty("startMessageIdInclusive") Boolean startMessageIdInclusive) {
+      this.partitionedTopic = partitionedTopic;
+      this.messageId = messageId == null ? "" : messageId;
+      this.startMessageIdInclusive =
+          startMessageIdInclusive == null ? true : startMessageIdInclusive;
+    }
 
-  @JsonGetter("startMessageIdInclusive")
-  public boolean isStartMessageIdInclusive() {
-    return startMessageIdInclusive;
+    @JsonGetter("partitionedTopic")
+    public String getPartitionedTopic() {
+      return partitionedTopic;
+    }
+
+    @JsonGetter("messageId")
+    public String getMessageId() {
+      return messageId;
+    }
+
+    @JsonGetter("startMessageIdInclusive")
+    public boolean isStartMessageIdInclusive() {
+      return startMessageIdInclusive;
+    }
   }
 
   @Override
